@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dousp.github.io/</id>
-    <title>Dsp</title>
-    <updated>2019-08-03T08:22:20.259Z</updated>
+    <title>豆豆的小纸箱</title>
+    <updated>2019-08-03T08:28:07.253Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dousp.github.io/"/>
     <link rel="self" href="https://dousp.github.io//atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://dousp.github.io//images/avatar.png</logo>
     <icon>https://dousp.github.io//favicon.ico</icon>
-    <rights>All rights reserved 2019, Dsp</rights>
+    <rights>All rights reserved 2019, 豆豆的小纸箱</rights>
 </feed>
