@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://dousp.github.io/</id>
     <title>豆豆的小纸箱</title>
-    <updated>2019-10-09T10:46:02.745Z</updated>
+    <updated>2019-10-09T10:51:46.635Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://dousp.github.io/"/>
     <link rel="self" href="https://dousp.github.io//atom.xml"/>
@@ -10,4 +10,61 @@
     <logo>https://dousp.github.io//images/avatar.png</logo>
     <icon>https://dousp.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, 豆豆的小纸箱</rights>
+    <entry>
+        <title type="html"><![CDATA[dacker安装kafka]]></title>
+        <id>https://dousp.github.io//post/dacker-an-zhuang-kafka</id>
+        <link href="https://dousp.github.io//post/dacker-an-zhuang-kafka">
+        </link>
+        <updated>2019-10-09T10:46:39.000Z</updated>
+        <summary type="html"><![CDATA[<ul>
+<li>收集整理而来，学习kafka时使用</li>
+<li>使用时请注意开放相关端口，将脚本中IP改成自己的</li>
+<li>使用Kafka需要安装zk</li>
+</ul>
+]]></summary>
+        <content type="html"><![CDATA[<ul>
+<li>收集整理而来，学习kafka时使用</li>
+<li>使用时请注意开放相关端口，将脚本中IP改成自己的</li>
+<li>使用Kafka需要安装zk</li>
+</ul>
+<!-- more -->
+<h2 id="镜像">镜像</h2>
+<ul>
+<li>如需定制请在镜像的docker hub官网上参考使用文档</li>
+</ul>
+<pre><code>docker pull wurstmeister/zookeeper
+docker pull wurstmeister/kafka
+</code></pre>
+<h2 id="启动">启动</h2>
+<pre><code>docker run -d --name zookeeper \
+    -p 2181:2181 \
+    -t wurstmeister/zookeeper
+</code></pre>
+<pre><code>docker run -d --name kafka \
+    -p 9092:9092 \
+    -e KAFKA_BROKER_ID=0 \
+    -e KAFKA_ZOOKEEPER_CONNECT=127.0.0.1:2181 \
+    -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092 \
+    -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 \
+    -t wurstmeister/kafka
+</code></pre>
+<h2 id="创建topic">创建topic</h2>
+<pre><code>/opt/kafka/bin/kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic mykafka
+</code></pre>
+<h2 id="创建生产者">创建生产者</h2>
+<pre><code>/opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic mykafka
+</code></pre>
+<h2 id="创建消费者">创建消费者</h2>
+<ul>
+<li>另起一个ssh窗口进入容器</li>
+</ul>
+<pre><code>/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic mykafka --from-beginning
+</code></pre>
+<h2 id="测试">测试</h2>
+<ul>
+<li>在生产者窗口输入数据</li>
+<li>在消费者窗口查看消费的数据</li>
+</ul>
+]]></content>
+    </entry>
 </feed>

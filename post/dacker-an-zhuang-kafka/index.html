@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Hello Gridea | 豆豆的小纸箱</title>
+<title>dacker安装kafka | 豆豆的小纸箱</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -81,40 +81,64 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>Hello Gridea</h1>
+            <h1>dacker安装kafka</h1>
             <p class="article-meta">
-              2018-12-12 12:00:00
+              2019-10-09 06:46:39
               
-                <a href="https://dousp.github.io//tag/Xx_4bwSAs" class="badge secondary">
-                  Gridea
+                <a href="https://dousp.github.io//tag/BNo0Vgag78" class="badge success">
+                  docker
+                </a>
+              
+                <a href="https://dousp.github.io//tag/95Bo5AlkwR" class="badge success">
+                  kafka
                 </a>
               
             </p>
             
-              <img src="https://dousp.github.io//post-images/hello-gridea.png" alt="Hello Gridea">
-            
             <div class="post-content">
-              <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+              <ul>
+<li>收集整理而来，学习kafka时使用</li>
+<li>使用时请注意开放相关端口，将脚本中IP改成自己的</li>
+<li>使用Kafka需要安装zk</li>
+</ul>
 <!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="http://hvenotes.fehey.com/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>𝖶𝗂𝗇𝖽𝗈𝗐𝗌</strong> 或 <strong>𝖬𝖺𝖼𝖮𝖲</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
+<h2 id="镜像">镜像</h2>
+<ul>
+<li>如需定制请在镜像的docker hub官网上参考使用文档</li>
+</ul>
+<pre><code>docker pull wurstmeister/zookeeper
+docker pull wurstmeister/kafka
+</code></pre>
+<h2 id="启动">启动</h2>
+<pre><code>docker run -d --name zookeeper \
+    -p 2181:2181 \
+    -t wurstmeister/zookeeper
+</code></pre>
+<pre><code>docker run -d --name kafka \
+    -p 9092:9092 \
+    -e KAFKA_BROKER_ID=0 \
+    -e KAFKA_ZOOKEEPER_CONNECT=127.0.0.1:2181 \
+    -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092 \
+    -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 \
+    -t wurstmeister/kafka
+</code></pre>
+<h2 id="创建topic">创建topic</h2>
+<pre><code>/opt/kafka/bin/kafka-topics.sh --create --zookeeper 127.0.0.1:2181 --replication-factor 1 --partitions 1 --topic mykafka
+</code></pre>
+<h2 id="创建生产者">创建生产者</h2>
+<pre><code>/opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic mykafka
+</code></pre>
+<h2 id="创建消费者">创建消费者</h2>
+<ul>
+<li>另起一个ssh窗口进入容器</li>
+</ul>
+<pre><code>/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic mykafka --from-beginning
+</code></pre>
+<h2 id="测试">测试</h2>
+<ul>
+<li>在生产者窗口输入数据</li>
+<li>在消费者窗口查看消费的数据</li>
+</ul>
 
             </div>
           </article>
@@ -169,7 +193,7 @@
     </div>
     <div class="row">
       
-        <a href="https://dousp.github.io//tag/BNo0Vgag78" class="badge secondary">
+        <a href="https://dousp.github.io//tag/BNo0Vgag78" class="badge ">
           docker
         </a>
       
